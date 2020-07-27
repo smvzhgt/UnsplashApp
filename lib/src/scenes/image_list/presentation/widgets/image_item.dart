@@ -4,25 +4,43 @@ import 'package:unsplash_app/src/scenes/detail/presentation/page/image_detail_pa
 
 class ImageItem extends StatelessWidget {
   final ImageModel model;
-  const ImageItem({Key key, this.model}) : super(key: key);
+  const ImageItem({
+    Key key,
+    @required this.model,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) {
-          return ImageDatailPage(
-            model: model,
-          );
-        }));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) {
+              return ImageDatailPage(model: model);
+            },
+          ),
+        );
       },
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Image.network(
             model.urls.regular,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          loadingProgress.expectedTotalBytes
+                      : null,
+                ),
+              );
+            },
           ),
           Align(
             alignment: Alignment.topCenter,

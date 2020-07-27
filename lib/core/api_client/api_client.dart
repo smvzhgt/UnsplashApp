@@ -12,7 +12,7 @@ abstract class ApiClient {
 }
 
 class ApiClientImpl implements ApiClient {
-  Client _client = Client();
+  final Client _client = Client();
 
   @override
   Future<Either<NetworkException, List<ImageModel>>> fetchImages() async {
