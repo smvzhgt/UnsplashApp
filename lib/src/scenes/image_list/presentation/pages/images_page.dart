@@ -8,7 +8,10 @@ import 'package:unsplash_app/src/scenes/image_list/presentation/bloc/image_list_
 import 'package:unsplash_app/src/scenes/image_list/presentation/widgets/image_item.dart';
 
 class ImagesPage extends StatefulWidget {
-  const ImagesPage({Key key}) : super(key: key);
+  static const routeName = '/';
+  const ImagesPage({
+    Key key,
+  }) : super(key: key);
 
   @override
   _ImagesPageState createState() => _ImagesPageState();

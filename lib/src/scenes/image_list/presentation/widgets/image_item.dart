@@ -14,14 +14,8 @@ class ImageItem extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) {
-              return ImageDatailPage(model: model);
-            },
-          ),
-        );
+        Navigator.pushNamed(context, ImageDatailPage.routeName,
+            arguments: model);
       },
       child: Stack(
         fit: StackFit.expand,
