@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:unsplash_app/core/constants.dart';
 import 'package:unsplash_app/src/scenes/image_list/data/models/image_model.dart';
+import 'package:unsplash_app/generated/l10n.dart';
 
 class ImageDatailPage extends StatelessWidget {
   static const routeName = 'detailPage';
@@ -13,7 +13,7 @@ class ImageDatailPage extends StatelessWidget {
     final ImageModel model = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(DETAIL_IMAGE_PAGE_TITLE),
+        title: Text(S.of(context).detail_image_page_title),
       ),
       body: Center(
         child: Image.network(model.urls.regular),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:unsplash_app/core/constants.dart';
+import 'package:unsplash_app/generated/l10n.dart';
 import 'package:unsplash_app/core/pages/error_page.dart';
 import 'package:unsplash_app/core/pages/loading_page.dart';
 import 'package:unsplash_app/src/scenes/image_list/data/models/image_model.dart';
@@ -28,7 +28,7 @@ class _ImagesPageState extends State<ImagesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(APP_TITLE),
+        title: Text(S.of(context).app_title),
       ),
       body: Center(
         child: BlocBuilder<ImageListBloc, ImageListState>(

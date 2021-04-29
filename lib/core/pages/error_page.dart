@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
+import 'package:unsplash_app/generated/l10n.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({Key key}) : super(key: key);
@@ -8,8 +7,8 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: const Text(
-        ERROR_LOADING_DATA_LABEL,
+      child: Text(
+        S.of(context).error_loading_data_label,
         style: TextStyle(
           fontSize: 30.0,
           fontWeight: FontWeight.bold,
