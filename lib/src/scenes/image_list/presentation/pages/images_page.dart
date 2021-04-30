@@ -10,7 +10,7 @@ import 'package:unsplash_app/src/scenes/image_list/presentation/widgets/image_it
 class ImagesPage extends StatefulWidget {
   static const routeName = '/';
   const ImagesPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

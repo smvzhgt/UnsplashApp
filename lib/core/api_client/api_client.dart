@@ -8,30 +8,34 @@ import 'package:unsplash_app/src/scenes/image_list/data/models/image_model.dart'
 import '../ecxceptions.dart';
 
 abstract class ApiClient {
-  Future<Either<NetworkException, List<ImageModel>>> fetchImages();
+  Future<Either<Exception, List<ImageModel>>> fetchImages();
 }
 
 class ApiClientImpl implements ApiClient {
   final Client _client = Client();
 
   @override
-  Future<Either<NetworkException, List<ImageModel>>> fetchImages() async {
+  Future<Either<Exception, List<ImageModel>>> fetchImages() async {
     final authority = BASE_URL;
-    final unencodedPath = '/photos/';
+    final unEncodedPath = '/photos/';
     final queryParams = {
       "client_id": API_KEY,
     };
     var url = Uri.https(
       authority,
-      unencodedPath,
+      unEncodedPath,
       queryParams,
     );
     final response = await _client.get(url);
     if (response.statusCode == 200) {
       List<dynamic> jsonList = json.decode(response.body) as List;
-      List<ImageModel> imageList =
-          jsonList.map((e) => ImageModel.fromJson(e)).toList();
-      return Right(imageList);
+      try {
+        List<ImageModel> imageList =
+            jsonList.map((e) => ImageModel.fromJson(e)).toList();
+        return Right(imageList);
+      } on DataParsingException {
+        return Left(DataParsingException());
+      }
     } else {
       return Left(NetworkException());
     }

@@ -5,8 +5,8 @@ import 'package:unsplash_app/src/scenes/detail/presentation/page/image_detail_pa
 class ImageItem extends StatelessWidget {
   final ImageModel model;
   const ImageItem({
-    Key key,
-    @required this.model,
+    Key? key,
+    required this.model,
   }) : super(key: key);
 
   @override
@@ -14,23 +14,23 @@ class ImageItem extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ImageDatailPage.routeName,
+        Navigator.pushNamed(context, ImageDetailPage.routeName,
             arguments: model);
       },
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
           Image.network(
-            model.urls.regular,
+            model.urls?.regular ?? "",
             fit: BoxFit.fill,
             loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent loadingProgress) {
+                ImageChunkEvent? loadingProgress) {
               if (loadingProgress == null) return child;
               return Center(
                 child: CircularProgressIndicator(
                   value: loadingProgress.expectedTotalBytes != null
                       ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes
+                          (loadingProgress.expectedTotalBytes ?? 0)
                       : null,
                 ),
               );
@@ -49,7 +49,7 @@ class ImageItem extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Text(
-                model.altDescription == null ? '' : model.altDescription,
+                model.altDescription ?? "",
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: TextStyle(color: Colors.white),
@@ -69,7 +69,7 @@ class ImageItem extends StatelessWidget {
             child: Align(
               alignment: Alignment.bottomLeft,
               child: Text(
-                model.user.username,
+                model.user?.username ?? "",
                 style: TextStyle(color: Colors.white),
               ),
             ),

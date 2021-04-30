@@ -1,38 +1,38 @@
 class ImageModel {
-  String _id;
-  String _createdAt;
-  String _updatedAt;
-  String _promotedAt;
-  int _width;
-  int _height;
-  String _color;
-  String _description;
-  String _altDescription;
-  Urls _urls;
-  Links _links;
-  int _likes;
-  bool _likedByUser;
-  Sponsorship _sponsorship;
-  Sponsor _user;
+  String _id = "";
+  String _createdAt = "";
+  String _updatedAt = "";
+  String _promotedAt = "";
+  int _width = 0;
+  int _height = 0;
+  String _color = "";
+  String? _description;
+  String? _altDescription;
+  Urls? _urls;
+  Links? _links;
+  int _likes = 0;
+  bool _likedByUser = false;
+  Sponsorship? _sponsorship;
+  Sponsor? _user;
 
   ImageModel(
-      {String id,
-      String createdAt,
-      String updatedAt,
-      String promotedAt,
-      int width,
-      int height,
-      String color,
-      int colorInt,
-      String description,
-      String altDescription,
-      Urls urls,
-      Links links,
-      List<String> categories,
-      int likes,
-      bool likedByUser,
-      Sponsorship sponsorship,
-      Sponsor user}) {
+      {required String id,
+      required String createdAt,
+      required String updatedAt,
+      required String promotedAt,
+      required int width,
+      required int height,
+      required String color,
+      required int colorInt,
+      String? description,
+      String? altDescription,
+      Urls? urls,
+      Links? links,
+      required List<String> categories,
+      required int likes,
+      required bool likedByUser,
+      Sponsorship? sponsorship,
+      Sponsor? user}) {
     this._id = id;
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
@@ -50,6 +50,7 @@ class ImageModel {
     this._user = user;
   }
 
+  // ignore: unnecessary_getters_setters
   String get id => _id;
   set id(String id) => _id = id;
   String get createdAt => _createdAt;
@@ -64,22 +65,23 @@ class ImageModel {
   set height(int height) => _height = height;
   String get color => _color;
   set color(String color) => _color = color;
-  String get description => _description;
-  set description(String description) => _description = description;
-  String get altDescription => _altDescription;
-  set altDescription(String altDescription) => _altDescription = altDescription;
-  Urls get urls => _urls;
-  set urls(Urls urls) => _urls = urls;
-  Links get links => _links;
-  set links(Links links) => _links = links;
+  String? get description => _description;
+  set description(String? description) => _description = description;
+  String? get altDescription => _altDescription;
+  set altDescription(String? altDescription) =>
+      _altDescription = altDescription;
+  Urls? get urls => _urls;
+  set urls(Urls? urls) => _urls = urls;
+  Links? get links => _links;
+  set links(Links? links) => _links = links;
   int get likes => _likes;
   set likes(int likes) => _likes = likes;
   bool get likedByUser => _likedByUser;
   set likedByUser(bool likedByUser) => _likedByUser = likedByUser;
-  Sponsorship get sponsorship => _sponsorship;
-  set sponsorship(Sponsorship sponsorship) => _sponsorship = sponsorship;
-  Sponsor get user => _user;
-  set user(Sponsor user) => _user = user;
+  Sponsorship? get sponsorship => _sponsorship;
+  set sponsorship(Sponsorship? sponsorship) => _sponsorship = sponsorship;
+  Sponsor? get user => _user;
+  set user(Sponsor? user) => _user = user;
 
   ImageModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
@@ -91,14 +93,13 @@ class ImageModel {
     _color = json['color'];
     _description = json['description'];
     _altDescription = json['alt_description'];
-    _urls = json['urls'] != null ? new Urls.fromJson(json['urls']) : null;
-    _links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    _likes = json['likes'];
+    _urls = json['urls'] != null ? Urls.fromJson(json['urls']) : null;
+    _links = json['links'] != null ? Links.fromJson(json['links']) : null;
     _likedByUser = json['liked_by_user'];
     _sponsorship = json['sponsorship'] != null
-        ? new Sponsorship.fromJson(json['sponsorship'])
+        ? Sponsorship.fromJson(json['sponsorship'])
         : null;
-    _user = json['user'] != null ? new Sponsor.fromJson(json['user']) : null;
+    _user = json['user'] != null ? Sponsor.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -112,32 +113,30 @@ class ImageModel {
     data['color'] = this._color;
     data['description'] = this._description;
     data['alt_description'] = this._altDescription;
-    if (this._urls != null) {
-      data['urls'] = this._urls.toJson();
-    }
-    if (this._links != null) {
-      data['links'] = this._links.toJson();
-    }
+    data['urls'] = this._urls?.toJson();
+    data['links'] = this._links?.toJson();
     data['likes'] = this._likes;
     data['liked_by_user'] = this._likedByUser;
-    if (this._sponsorship != null) {
-      data['sponsorship'] = this._sponsorship.toJson();
-    }
-    if (this._user != null) {
-      data['user'] = this._user.toJson();
-    }
+    data['sponsorship'] = this._sponsorship?.toJson();
+    data['user'] = this._user?.toJson();
     return data;
   }
 }
 
 class Urls {
-  String _raw;
-  String _full;
-  String _regular;
-  String _small;
-  String _thumb;
+  String _raw = "";
+  String _full = "";
+  String _regular = "";
+  String _small = "";
+  String _thumb = "";
 
-  Urls({String raw, String full, String regular, String small, String thumb}) {
+  Urls({
+    required String raw,
+    required String full,
+    required String regular,
+    required String small,
+    required String thumb,
+  }) {
     this._raw = raw;
     this._full = full;
     this._regular = regular;
@@ -176,26 +175,30 @@ class Urls {
 }
 
 class Links {
-  String _self;
-  String _html;
-  String _download;
-  String _downloadLocation;
+  String? _self;
+  String? _html;
+  String? _download;
+  String? _downloadLocation;
 
-  Links({String self, String html, String download, String downloadLocation}) {
+  Links(
+      {String? self,
+      String? html,
+      String? download,
+      String? downloadLocation}) {
     this._self = self;
     this._html = html;
     this._download = download;
     this._downloadLocation = downloadLocation;
   }
 
-  String get self => _self;
-  set self(String self) => _self = self;
-  String get html => _html;
-  set html(String html) => _html = html;
-  String get download => _download;
-  set download(String download) => _download = download;
-  String get downloadLocation => _downloadLocation;
-  set downloadLocation(String downloadLocation) =>
+  String? get self => _self;
+  set self(String? self) => _self = self;
+  String? get html => _html;
+  set html(String? html) => _html = html;
+  String? get download => _download;
+  set download(String? download) => _download = download;
+  String? get downloadLocation => _downloadLocation;
+  set downloadLocation(String? downloadLocation) =>
       _downloadLocation = downloadLocation;
 
   Links.fromJson(Map<String, dynamic> json) {
@@ -216,11 +219,12 @@ class Links {
 }
 
 class Sponsorship {
-  String _tagline;
-  String _taglineUrl;
-  Sponsor _sponsor;
+  String _tagline = "";
+  String _taglineUrl = "";
+  Sponsor? _sponsor;
 
-  Sponsorship({String tagline, String taglineUrl, Sponsor sponsor}) {
+  Sponsorship(
+      {required String tagline, required String taglineUrl, Sponsor? sponsor}) {
     this._tagline = tagline;
     this._taglineUrl = taglineUrl;
     this._sponsor = sponsor;
@@ -230,8 +234,8 @@ class Sponsorship {
   set tagline(String tagline) => _tagline = tagline;
   String get taglineUrl => _taglineUrl;
   set taglineUrl(String taglineUrl) => _taglineUrl = taglineUrl;
-  Sponsor get sponsor => _sponsor;
-  set sponsor(Sponsor sponsor) => _sponsor = sponsor;
+  Sponsor? get sponsor => _sponsor;
+  set sponsor(Sponsor? sponsor) => _sponsor = sponsor;
 
   Sponsorship.fromJson(Map<String, dynamic> json) {
     _tagline = json['tagline'];
@@ -244,173 +248,28 @@ class Sponsorship {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tagline'] = this._tagline;
     data['tagline_url'] = this._taglineUrl;
-    if (this._sponsor != null) {
-      data['sponsor'] = this._sponsor.toJson();
-    }
-    return data;
-  }
-}
-
-class Sponsor {
-  String _id;
-  String _updatedAt;
-  String _username;
-  String _name;
-  String _firstName;
-  String _lastName;
-  String _twitterUsername;
-  String _portfolioUrl;
-  String _bio;
-  String _location;
-  Links _links;
-  ProfileImage _profileImage;
-  String _instagramUsername;
-  int _totalCollections;
-  int _totalLikes;
-  int _totalPhotos;
-  bool _acceptedTos;
-
-  Sponsor(
-      {String id,
-      String updatedAt,
-      String username,
-      String name,
-      String firstName,
-      String lastName,
-      String twitterUsername,
-      String portfolioUrl,
-      String bio,
-      String location,
-      Links links,
-      ProfileImage profileImage,
-      String instagramUsername,
-      int totalCollections,
-      int totalLikes,
-      int totalPhotos,
-      bool acceptedTos}) {
-    this._id = id;
-    this._updatedAt = updatedAt;
-    this._username = username;
-    this._name = name;
-    this._firstName = firstName;
-    this._lastName = lastName;
-    this._twitterUsername = twitterUsername;
-    this._portfolioUrl = portfolioUrl;
-    this._bio = bio;
-    this._location = location;
-    this._links = links;
-    this._profileImage = profileImage;
-    this._instagramUsername = instagramUsername;
-    this._totalCollections = totalCollections;
-    this._totalLikes = totalLikes;
-    this._totalPhotos = totalPhotos;
-    this._acceptedTos = acceptedTos;
-  }
-
-  String get id => _id;
-  set id(String id) => _id = id;
-  String get updatedAt => _updatedAt;
-  set updatedAt(String updatedAt) => _updatedAt = updatedAt;
-  String get username => _username;
-  set username(String username) => _username = username;
-  String get name => _name;
-  set name(String name) => _name = name;
-  String get firstName => _firstName;
-  set firstName(String firstName) => _firstName = firstName;
-  String get lastName => _lastName;
-  set lastName(String lastName) => _lastName = lastName;
-  String get twitterUsername => _twitterUsername;
-  set twitterUsername(String twitterUsername) =>
-      _twitterUsername = twitterUsername;
-  String get portfolioUrl => _portfolioUrl;
-  set portfolioUrl(String portfolioUrl) => _portfolioUrl = portfolioUrl;
-  String get bio => _bio;
-  set bio(String bio) => _bio = bio;
-  String get location => _location;
-  set location(String location) => _location = location;
-  Links get links => _links;
-  set links(Links links) => _links = links;
-  ProfileImage get profileImage => _profileImage;
-  set profileImage(ProfileImage profileImage) => _profileImage = profileImage;
-  String get instagramUsername => _instagramUsername;
-  set instagramUsername(String instagramUsername) =>
-      _instagramUsername = instagramUsername;
-  int get totalCollections => _totalCollections;
-  set totalCollections(int totalCollections) =>
-      _totalCollections = totalCollections;
-  int get totalLikes => _totalLikes;
-  set totalLikes(int totalLikes) => _totalLikes = totalLikes;
-  int get totalPhotos => _totalPhotos;
-  set totalPhotos(int totalPhotos) => _totalPhotos = totalPhotos;
-  bool get acceptedTos => _acceptedTos;
-  set acceptedTos(bool acceptedTos) => _acceptedTos = acceptedTos;
-
-  Sponsor.fromJson(Map<String, dynamic> json) {
-    _id = json['id'];
-    _updatedAt = json['updated_at'];
-    _username = json['username'];
-    _name = json['name'];
-    _firstName = json['first_name'];
-    _lastName = json['last_name'];
-    _twitterUsername = json['twitter_username'];
-    _portfolioUrl = json['portfolio_url'];
-    _bio = json['bio'];
-    _location = json['location'];
-    _links = json['links'] != null ? new Links.fromJson(json['links']) : null;
-    _profileImage = json['profile_image'] != null
-        ? new ProfileImage.fromJson(json['profile_image'])
-        : null;
-    _instagramUsername = json['instagram_username'];
-    _totalCollections = json['total_collections'];
-    _totalLikes = json['total_likes'];
-    _totalPhotos = json['total_photos'];
-    _acceptedTos = json['accepted_tos'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this._id;
-    data['updated_at'] = this._updatedAt;
-    data['username'] = this._username;
-    data['name'] = this._name;
-    data['first_name'] = this._firstName;
-    data['last_name'] = this._lastName;
-    data['twitter_username'] = this._twitterUsername;
-    data['portfolio_url'] = this._portfolioUrl;
-    data['bio'] = this._bio;
-    data['location'] = this._location;
-    if (this._links != null) {
-      data['links'] = this._links.toJson();
-    }
-    if (this._profileImage != null) {
-      data['profile_image'] = this._profileImage.toJson();
-    }
-    data['instagram_username'] = this._instagramUsername;
-    data['total_collections'] = this._totalCollections;
-    data['total_likes'] = this._totalLikes;
-    data['total_photos'] = this._totalPhotos;
-    data['accepted_tos'] = this._acceptedTos;
+    data['sponsor'] = this._sponsor?.toJson();
     return data;
   }
 }
 
 class ImageLinks {
-  String _self;
-  String _html;
-  String _photos;
-  String _likes;
-  String _portfolio;
-  String _following;
-  String _followers;
+  String _self = "";
+  String _html = "";
+  String _photos = "";
+  String _likes = "";
+  String _portfolio = "";
+  String _following = "";
+  String _followers = "";
 
   ImageLinks(
-      {String self,
-      String html,
-      String photos,
-      String likes,
-      String portfolio,
-      String following,
-      String followers}) {
+      {required String self,
+      required String html,
+      required String photos,
+      required String likes,
+      required String portfolio,
+      required String following,
+      required String followers}) {
     this._self = self;
     this._html = html;
     this._photos = photos;
@@ -459,11 +318,12 @@ class ImageLinks {
 }
 
 class ProfileImage {
-  String _small;
-  String _medium;
-  String _large;
+  String _small = "";
+  String _medium = "";
+  String _large = "";
 
-  ProfileImage({String small, String medium, String large}) {
+  ProfileImage(
+      {required String small, required String medium, required String large}) {
     this._small = small;
     this._medium = medium;
     this._large = large;
@@ -487,6 +347,145 @@ class ProfileImage {
     data['small'] = this._small;
     data['medium'] = this._medium;
     data['large'] = this._large;
+    return data;
+  }
+}
+
+class Sponsor {
+  String? _id;
+  String? _updatedAt;
+  String? _username;
+  String? _name;
+  String? _firstName;
+  String? _lastName;
+  String? _twitterUsername;
+  String? _portfolioUrl;
+  String? _bio;
+  String? _location;
+  Links? _links;
+  ProfileImage? _profileImage;
+  String? _instagramUsername;
+  int? _totalCollections;
+  int? _totalLikes;
+  int? _totalPhotos;
+  bool _acceptedTos = false;
+
+  Sponsor(
+      {String? id,
+      String? updatedAt,
+      String? username,
+      String? name,
+      String? firstName,
+      String? lastName,
+      String? twitterUsername,
+      String? portfolioUrl,
+      String? bio,
+      String? location,
+      Links? links,
+      ProfileImage? profileImage,
+      String? instagramUsername,
+      int? totalCollections,
+      int? totalLikes,
+      int? totalPhotos,
+      required bool acceptedTos}) {
+    this._id = id;
+    this._updatedAt = updatedAt;
+    this._username = username;
+    this._name = name;
+    this._firstName = firstName;
+    this._lastName = lastName;
+    this._twitterUsername = twitterUsername;
+    this._portfolioUrl = portfolioUrl;
+    this._bio = bio;
+    this._location = location;
+    this._links = links;
+    this._profileImage = profileImage;
+    this._instagramUsername = instagramUsername;
+    this._totalCollections = totalCollections;
+    this._totalLikes = totalLikes;
+    this._totalPhotos = totalPhotos;
+    this._acceptedTos = acceptedTos;
+  }
+
+  String? get id => _id;
+  set id(String? id) => _id = id;
+  String? get updatedAt => _updatedAt;
+  set updatedAt(String? updatedAt) => _updatedAt = updatedAt;
+  String? get username => _username;
+  set username(String? username) => _username = username;
+  String? get name => _name;
+  set name(String? name) => _name = name;
+  String? get firstName => _firstName;
+  set firstName(String? firstName) => _firstName = firstName;
+  String? get lastName => _lastName;
+  set lastName(String? lastName) => _lastName = lastName;
+  String? get twitterUsername => _twitterUsername;
+  set twitterUsername(String? twitterUsername) =>
+      _twitterUsername = twitterUsername;
+  String? get portfolioUrl => _portfolioUrl;
+  set portfolioUrl(String? portfolioUrl) => _portfolioUrl = portfolioUrl;
+  String? get bio => _bio;
+  set bio(String? bio) => _bio = bio;
+  String? get location => _location;
+  set location(String? location) => _location = location;
+  Links? get links => _links;
+  set links(Links? links) => _links = links;
+  ProfileImage? get profileImage => _profileImage;
+  set profileImage(ProfileImage? profileImage) => _profileImage = profileImage;
+  String? get instagramUsername => _instagramUsername;
+  set instagramUsername(String? instagramUsername) =>
+      _instagramUsername = instagramUsername;
+  int? get totalCollections => _totalCollections;
+  set totalCollections(int? totalCollections) =>
+      _totalCollections = totalCollections;
+  int? get totalLikes => _totalLikes;
+  set totalLikes(int? totalLikes) => _totalLikes = totalLikes;
+  int? get totalPhotos => _totalPhotos;
+  set totalPhotos(int? totalPhotos) => _totalPhotos = totalPhotos;
+  bool get acceptedTos => _acceptedTos;
+  set acceptedTos(bool acceptedTos) => _acceptedTos = acceptedTos;
+
+  Sponsor.fromJson(Map<String, dynamic> json) {
+    _id = json['id'];
+    _updatedAt = json['updated_at'];
+    _username = json['username'];
+    _name = json['name'];
+    _firstName = json['first_name'];
+    _lastName = json['last_name'];
+    _twitterUsername = json['twitter_username'];
+    _portfolioUrl = json['portfolio_url'];
+    _bio = json['bio'];
+    _location = json['location'];
+    _links = json['links'] != null ? Links.fromJson(json['links']) : null;
+    _profileImage = json['profile_image'] != null
+        ? ProfileImage.fromJson(json['profile_image'])
+        : null;
+    _instagramUsername = json['instagram_username'];
+    _totalCollections = json['total_collections'];
+    _totalLikes = json['total_likes'];
+    _totalPhotos = json['total_photos'];
+    _acceptedTos = json['accepted_tos'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this._id;
+    data['updated_at'] = this._updatedAt;
+    data['username'] = this._username;
+    data['name'] = this._name;
+    data['first_name'] = this._firstName;
+    data['last_name'] = this._lastName;
+    data['twitter_username'] = this._twitterUsername;
+    data['portfolio_url'] = this._portfolioUrl;
+    data['bio'] = this._bio;
+    data['location'] = this._location;
+    data['links'] = this.links?.toJson();
+    data['profile_image'] = this._profileImage?.toJson();
+    data['instagram_username'] = this._instagramUsername;
+    data['total_collections'] = this._totalCollections;
+    data['total_likes'] = this._totalLikes;
+    data['total_photos'] = this._totalPhotos;
+    data['accepted_tos'] = this._acceptedTos;
     return data;
   }
 }

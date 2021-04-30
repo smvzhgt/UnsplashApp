@@ -10,7 +10,7 @@ final sl = GetIt.instance;
 
 void init() {
   // Bloc
-  sl.registerFactory(() => ImageListBloc(interactor: sl()));
+  sl.registerFactory(() => ImageListBloc(ImageListInitialState(), sl()));
 
   // Interactor
   sl.registerLazySingleton<ImageInteractor>(

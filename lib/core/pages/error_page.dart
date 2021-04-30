@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_app/generated/l10n.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({Key key}) : super(key: key);
+  const ErrorPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
