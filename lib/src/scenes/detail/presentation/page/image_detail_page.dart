@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:unsplash_app/core/constants.dart';
 import 'package:unsplash_app/src/scenes/image_list/data/models/image_model.dart';
 import 'package:unsplash_app/generated/l10n.dart';
 
@@ -17,8 +18,11 @@ class ImageDetailPage extends StatelessWidget {
         title: Text(S.of(context).detail_image_page_title),
       ),
       body: Center(
-        child: Image.network(model.urls?.regular ?? ""),
-      ),
+          child: model.urls?.regular != null
+              ? Image.network(model.urls?.regular ?? "")
+              : Image(
+                  image: AssetImage(kNoImagePlaceholder),
+                )),
     );
   }
 }

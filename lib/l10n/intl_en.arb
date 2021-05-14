@@ -1,5 +1,5 @@
 {
-  "app_title":"Images App",
-  "error_loading_data_label":"Error loading data",
-  "detail_image_page_title":"Detail Image Page"
+    "app_title": "Images App",
+    "error_loading_data_label": "Error loading data",
+    "detail_image_page_title": "Detail Image Page"
 }

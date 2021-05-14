@@ -21,33 +21,35 @@ class ImageItem extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          _buildImage(),
+          _buildImage(model.urls?.thumb ?? ""),
           _buildTopContainer(context, size),
-          _buildTopLabel(context),
+          _buildTopLabel(context, model.altDescription ?? ""),
           _buildBottomContainer(context, size),
-          _buildBottomLabel(context)
+          _buildBottomLabel(context, model.user?.username ?? "")
         ],
       ),
     );
   }
 
-  Widget _buildImage() {
-    return Image.network(
-      model.urls?.regular ?? "",
-      fit: BoxFit.fill,
-      loadingBuilder: (BuildContext context, Widget child,
-          ImageChunkEvent? loadingProgress) {
-        if (loadingProgress == null) return child;
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded /
-                    (loadingProgress.expectedTotalBytes ?? 0)
-                : null,
-          ),
-        );
-      },
-    );
+  Widget _buildImage(String imageUrl) {
+    return imageUrl.isEmpty
+        ? Image(image: AssetImage(kNoImagePlaceholder))
+        : Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+            loadingBuilder: (BuildContext context, Widget child,
+                ImageChunkEvent? loadingProgress) {
+              if (loadingProgress == null) return child;
+              return Center(
+                child: CircularProgressIndicator(
+                  value: loadingProgress.expectedTotalBytes != null
+                      ? loadingProgress.cumulativeBytesLoaded /
+                          (loadingProgress.expectedTotalBytes ?? 0)
+                      : null,
+                ),
+              );
+            },
+          );
   }
 
   Widget _buildTopContainer(BuildContext context, Size size) {
@@ -60,23 +62,27 @@ class ImageItem extends StatelessWidget {
               width: size.width / kTopContainerCoefficientWidth,
             ),
           )
-        : Container();
+        : SizedBox.shrink();
   }
 
-  Widget _buildTopLabel(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsets.only(left: kTopLabelPadding, top: kTopLabelPadding),
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Text(
-          model.altDescription ?? "",
-          overflow: TextOverflow.ellipsis,
-          maxLines: 3,
-          style: TextStyle(color: Theme.of(context).focusColor),
-        ),
-      ),
-    );
+  Widget _buildTopLabel(BuildContext context, String text) {
+    return text.isNotEmpty
+        ? Padding(
+            padding: const EdgeInsets.only(
+              left: kTopLabelPadding,
+              top: kTopLabelPadding,
+            ),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                text,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 3,
+                style: TextStyle(color: Theme.of(context).focusColor),
+              ),
+            ),
+          )
+        : SizedBox.shrink();
   }
 
   Widget _buildBottomContainer(BuildContext context, Size size) {
@@ -90,17 +96,21 @@ class ImageItem extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomLabel(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-          left: kBottomLabelPadding, bottom: kBottomLabelPadding),
-      child: Align(
-        alignment: Alignment.bottomLeft,
-        child: Text(
-          model.user?.username ?? "",
-          style: TextStyle(color: Theme.of(context).focusColor),
-        ),
-      ),
-    );
+  Widget _buildBottomLabel(BuildContext context, String text) {
+    return text.isNotEmpty
+        ? Padding(
+            padding: const EdgeInsets.only(
+              left: kBottomLabelPadding,
+              bottom: kBottomLabelPadding,
+            ),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                text,
+                style: TextStyle(color: Theme.of(context).focusColor),
+              ),
+            ),
+          )
+        : SizedBox.shrink();
   }
 }
