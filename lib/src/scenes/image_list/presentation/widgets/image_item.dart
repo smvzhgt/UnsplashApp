@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:unsplash_app/core/constants.dart';
 import 'package:unsplash_app/src/scenes/image_list/data/models/image_model.dart';
 import 'package:unsplash_app/src/scenes/detail/presentation/page/image_detail_page.dart';
+import 'package:intl/intl.dart';
 
 class ImageItem extends StatelessWidget {
   final ImageModel model;
@@ -22,10 +23,13 @@ class ImageItem extends StatelessWidget {
         fit: StackFit.expand,
         children: <Widget>[
           _buildImage(model.urls.thumb),
-          _buildTopContainer(context, size),
-          _buildTopLabel(context, model.altDescription),
-          _buildBottomContainer(context, size),
-          _buildBottomLabel(context, model.user.userName)
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _buildTopLabelWidget(context, size),
+              _buildBottomLabelWidget(context, size)
+            ],
+          )
         ],
       ),
     );
@@ -33,7 +37,7 @@ class ImageItem extends StatelessWidget {
 
   Widget _buildImage(String imageUrl) {
     return imageUrl.isEmpty
-        ? Image(image: AssetImage(kNoImagePlaceholder))
+        ? Image(image: AssetImage(kNoImagePlaceholder), fit: BoxFit.fill)
         : Image.network(
             imageUrl,
             fit: BoxFit.cover,
@@ -52,30 +56,16 @@ class ImageItem extends StatelessWidget {
           );
   }
 
-  Widget _buildTopContainer(BuildContext context, Size size) {
+  Widget _buildTopLabelWidget(BuildContext context, Size size) {
     return model.altDescription.isNotEmpty
-        ? Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              color: Theme.of(context).cardColor,
-              height: size.width * kTopContainerCoefficientHeight,
-              width: size.width / kTopContainerCoefficientWidth,
-            ),
-          )
-        : SizedBox.shrink();
-  }
-
-  Widget _buildTopLabel(BuildContext context, String text) {
-    return text.isNotEmpty
-        ? Padding(
-            padding: const EdgeInsets.only(
-              left: kTopLabelPadding,
-              top: kTopLabelPadding,
-            ),
-            child: Align(
-              alignment: Alignment.topCenter,
+        ? Container(
+            color: Theme.of(context).cardColor,
+            width: size.width / kTopContainerCoefficientWidth,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
               child: Text(
-                text,
+                toBeginningOfSentenceCase(model.altDescription) ??
+                    model.altDescription,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 3,
                 style: TextStyle(color: Theme.of(context).focusColor),
@@ -85,28 +75,18 @@ class ImageItem extends StatelessWidget {
         : SizedBox.shrink();
   }
 
-  Widget _buildBottomContainer(BuildContext context, Size size) {
-    return Align(
-      alignment: Alignment.bottomLeft,
-      child: Container(
-        color: Theme.of(context).cardColor,
-        height: size.width * kBottomContainerCoefficientHeight,
-        width: size.width / kBottomContainerCoefficientWidth,
-      ),
-    );
-  }
-
-  Widget _buildBottomLabel(BuildContext context, String text) {
-    return text.isNotEmpty
-        ? Padding(
-            padding: const EdgeInsets.only(
-              left: kBottomLabelPadding,
-              bottom: kBottomLabelPadding,
-            ),
-            child: Align(
-              alignment: Alignment.bottomLeft,
+  Widget _buildBottomLabelWidget(BuildContext context, Size size) {
+    return model.user.name.isNotEmpty
+        ? Container(
+            color: Theme.of(context).cardColor,
+            height: size.width * kBottomContainerCoefficientHeight,
+            width: size.width / kBottomContainerCoefficientWidth,
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
               child: Text(
-                text,
+                model.user.name,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: TextStyle(color: Theme.of(context).focusColor),
               ),
             ),

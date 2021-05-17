@@ -53,8 +53,11 @@ class _ImagesPageState extends State<ImagesPage> {
 
   Widget _buildList(List<ImageModel> entities) {
     return GridView.builder(
-      gridDelegate:
-          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 1,
+        crossAxisSpacing: 1,
+      ),
       itemBuilder: (BuildContext context, int index) {
         return ImageItem(model: entities[index]);
       },

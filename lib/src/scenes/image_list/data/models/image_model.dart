@@ -14,7 +14,7 @@ class ImageModel {
   }
 
   ImageModel.fromJson(Map<String, dynamic> json) {
-    altDescription = json['alt_description'];
+    altDescription = json['alt_description'] ?? "";
     urls = json['urls'] != null ? Urls.fromJson(json['urls']) : Urls.empty();
     user =
         json['user'] != null ? Sponsor.fromJson(json['user']) : Sponsor.empty();
@@ -66,25 +66,25 @@ class Urls {
 }
 
 class Sponsor {
-  String userName = "";
+  String name = "";
 
   Sponsor({
     required String userName,
   }) {
-    this.userName = userName;
+    this.name = userName;
   }
 
   Sponsor.empty() {
-    this.userName = "";
+    this.name = "";
   }
 
   Sponsor.fromJson(Map<String, dynamic> json) {
-    userName = json['username'] ?? "";
+    name = json['name'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.userName;
+    data['name'] = this.name;
     return data;
   }
 }
