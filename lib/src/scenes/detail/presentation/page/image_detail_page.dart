@@ -9,22 +9,17 @@ class ImageDetailPage extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  String imageUrl(ImageModel model) {
-    return model.urls?.regular ?? "";
-  }
-
   @override
   Widget build(BuildContext context) {
     final ImageModel model =
         ModalRoute.of(context)?.settings.arguments as ImageModel;
-    final url = imageUrl(model);
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).detail_image_page_title),
       ),
       body: Center(
-        child: url.isNotEmpty
-            ? Image.network(url)
+        child: model.urls.regular.isNotEmpty
+            ? Image.network(model.urls.regular)
             : Image(image: AssetImage(kNoImagePlaceholder)),
       ),
     );

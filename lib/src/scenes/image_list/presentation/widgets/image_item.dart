@@ -21,11 +21,11 @@ class ImageItem extends StatelessWidget {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          _buildImage(model.urls?.thumb ?? ""),
+          _buildImage(model.urls.thumb),
           _buildTopContainer(context, size),
-          _buildTopLabel(context, model.altDescription ?? ""),
+          _buildTopLabel(context, model.altDescription),
           _buildBottomContainer(context, size),
-          _buildBottomLabel(context, model.user?.username ?? "")
+          _buildBottomLabel(context, model.user.userName)
         ],
       ),
     );
@@ -53,7 +53,7 @@ class ImageItem extends StatelessWidget {
   }
 
   Widget _buildTopContainer(BuildContext context, Size size) {
-    return model.altDescription != null
+    return model.altDescription.isNotEmpty
         ? Align(
             alignment: Alignment.topCenter,
             child: Container(
