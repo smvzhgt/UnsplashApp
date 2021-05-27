@@ -1,5 +1,4 @@
 const String BASE_URL = 'api.unsplash.com';
-const API_KEY = "Put your api-key";
 const kNoImagePlaceholder = 'assets/images/no_image.jpeg';
 const kBottomLabelPadding = 4.0;
 const kBottomContainerCoefficientHeight = 0.07;
