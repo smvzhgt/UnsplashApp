@@ -7,13 +7,13 @@ import 'package:unsplash_app/di/injection.dart' as di;
 import 'package:unsplash_app/src/scenes/detail/presentation/page/image_detail_page.dart';
 import 'package:unsplash_app/src/scenes/image_list/presentation/bloc/image_list_bloc.dart';
 import 'package:unsplash_app/src/scenes/image_list/presentation/pages/images_page.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
+import 'core/wrappers/dotenv_wrapper.dart';
 import 'di/injection.dart';
 import 'generated/l10n.dart';
 
 void main() async {
-  await DotEnv.load(fileName: ".env");
+  await DotenvWrapper.instance.load();
   di.init();
   WidgetsFlutterBinding.ensureInitialized();
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
